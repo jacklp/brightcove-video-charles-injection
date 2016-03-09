@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Smart Player API: Basic Setup</title>
+</head>
+​
+<body>
+<!-- Start of Brightcove Player -->
+​
+<div style="display:none">
+</div>
+​
+<!--
+  By use of this code snippet, I agree to the Brightcove Publisher T and C
+  found at https://accounts.brightcove.com/en/terms-and-conditions/.
+-->
+​
+
+
+<script language="JavaScript" type="text/javascript" src="http://admin.brightcove.com/js/BrightcoveExperiences.js"></script>
+
+<!--
+<object id="myExperience922656010001" class="BrightcoveExperience">
+    <param name="bgcolor" value="#FFFFFF" />
+    <param name="width" value="480" />
+    <param name="height" value="270" />
+    <param name="playerID" value="2344262015001" />
+    <param name="playerKey" value="AQ~~,AAACgRebHDE~,7ZLwnNkuuFLVVM06Di425p7vEZNdL4f1" />
+    <param name="isVid" value="true" />
+    <param name="isUI" value="true" />
+    <param name="dynamicStreaming" value="true" />
+    <param name="@videoPlayer" value="4317908852001"/>
+</object>
+-->
+
+<object id="myExperience4790150138001" class="BrightcoveExperience">  
+    <param name="bgcolor" value="#FFFFFF" />  
+    <param name="width" value="648" />  
+    <param name="height" value="365" />  
+    <param name="playerID" value="4581640863001" />  
+    <param name="playerKey" value="AQ~~,AAACT2hWexE~,QV-ElXQT89XYeDzzv2EI-sNTr1XyPZ3F" />  
+    <param name="isVid" value="true" />  
+    <param name="isUI" value="true" />  
+    <param name="dynamicStreaming" value="true" />    
+    <param name="@videoPlayer" value="4790150138001" />
+</object>
+
+
+<!--<div id ="log">
+</div>
+<script src="http://admin.brightcove.com/js/APIModules_all.js"> </script>
+
+  This script tag will cause the Brightcove Players defined above it to be created as soon
+  as the line is read by the browser. If you wish to have the player instantiated only after
+  the rest of the HTML is processed and the page load is complete, remove the line.
+<script type="text/javascript">brightcove.createExperiences();</script>
+​
+​
+<script type="text/javaScript">
+    var player,
+            APIModules,
+            modVP,
+            videoPlayer;
+    function onTemplateLoad(experienceID){
+        player = brightcove.api.getExperience(experienceID);
+        APIModules = brightcove.api.modules.APIModules;
+        modVP = player.getModule(brightcove.api.modules.APIModules.VIDEO_PLAYER);
+    }
+    function onTemplateReady(evt){
+        console.log("THE TEMPLATE IS READY!!!!!!!!!!!!!!!!")
+        videoPlayer = player.getModule(APIModules.VIDEO_PLAYER);
+        modVP.addEventListener(brightcove.api.events.MediaEvent.BEGIN,playVideo);
+        modVP.addEventListener(brightcove.api.events.MediaEvent.PROGRESS,pausedVideo);
+        videoPlayer.play();
+    }
+    function playVideo(evt){
+        console.log("HAI TEST")
+        document.getElementById('log').innerHTML = "<p>"+evt.media.displayName+"</p></br>";
+        document.getElementById('log').innerHTML += "<p>"+evt.duration+"</p></br>";
+    }
+    function pausedVideo(){
+        document.getElementById('log').innerHTML = "<p>"+evt.media.duration+"</p>";
+        console.log(evt);
+    }
+</script>-->
+​
+​
+</body>
+</html>

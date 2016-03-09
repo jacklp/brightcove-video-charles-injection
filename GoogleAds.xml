@@ -1,0 +1,26 @@
+<adSwf version="1" >
+    <!-- path to Google swf -->
+    <adSwfURL>http://admin.brightcove.com/adswf/Google.swf</adSwfURL>
+
+    <-- The publisher's AFV client ID (provided by AdSense). -->
+    <videoPublisherId>some-test-id</videoPublisherId>
+
+    <!-- The full URL of an HTML page that describes the video. -->
+    <videoDescriptionUrl>http://www.eepybird.com/test.html</videoDescriptionUrl>
+
+    <!-- An array of strings representing AdSense targeting/reporting channel IDs.
+     The channel IDs may only contain numbers, letters, underscores, and hyphens
+     (no spaces or other special characters), and they must match the channel IDs created
+     in your AFV account by your TAM. Up to 5 channels may be passed in per ad request. -->
+    <channels>sports, entertainment</channels>
+
+    <!-- The type of ad to request. This parameter should be set to "text_overlay" for
+     text overlay ads only, "overlay" for text overlay and InVideo graphical overlay
+     ads, or "fullscreen" for fullscreen text and image endcap ads. -->
+    <adType>text_overlay</adType>
+
+    <!-- Specifies whether this is a test implementation or not. Possible values are
+    "on" or "off". If set to "on," impressions and clicks will not be recorded
+     in your account. This parameter MUST be used during testing. -->
+    <adtest>on</adtest>
+</adSwf>

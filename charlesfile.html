@@ -1,0 +1,84 @@
+
+
+
+
+
+
+
+
+<param name="includeAPI" value="true" />
+<param name="templateLoadHandler" value="onTemplateLoad" />
+<param name="templateReadyHandler" value="onTemplateReady"/>
+</object>
+
+
+
+<div id ="log">
+</div>
+<script type="text/javascript">
+
+	brightcove.createExperiences();
+    
+    var player,
+        APIModules,
+        modVP,
+        videoPlayer,
+        admodule;
+ 
+ 	function onTemplateLoad(experienceID){
+ 		console.log("Template Loaded.");
+ 		player = brightcove.api.getExperience(experienceID);
+ 		APIModules = brightcove.api.modules.APIModules;
+ 	}
+
+    function onTemplateReady(evt){
+        console.log("Template Ready.");
+
+        adModule = player.getModule(APIModules.ADVERTISING);
+    	adModule.addEventListener( brightcove.api.events.AdEvent.COMPLETE, AdHandler);
+    	adModule.addEventListener( brightcove.api.events.AdEvent.START, AdHandler);
+
+    	videoPlayer = player.getModule(APIModules.VIDEO_PLAYER);
+		videoPlayer.addEventListener(brightcove.api.events.MediaEvent.BEGIN, logstuff);
+		videoPlayer.addEventListener(brightcove.api.events.MediaEvent.CHANGE, logstuff);
+		videoPlayer.addEventListener(brightcove.api.events.MediaEvent.COMPLETE, logstuff);
+		videoPlayer.addEventListener(brightcove.api.events.MediaEvent.PLAY, logstuff);
+		videoPlayer.addEventListener(brightcove.api.events.MediaEvent.PROGRESS, logstuff);
+		videoPlayer.addEventListener(brightcove.api.events.MediaEvent.SEEK_NOTIFY, logstuff);
+		videoPlayer.addEventListener(brightcove.api.events.MediaEvent.STOP, logstuff);
+	
+        adModule.getAdPolicy(getAdPolicyHandler);
+        videoPlayer.play();
+    }
+
+     function getAdPolicyHandler(adPolicy) {
+     		console.log("getting ad policy");
+            adPolicy.prerollAds = true;
+            adPolicy.adServerURL = "http://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=%2F15018773%2Feverything2&ciu_szs=300x250%2C468x60%2C728x90&impl=s&gdfp_req=1&env=vp&output=xml_vast2&unviewed_position_start=1&url=dummy&correlator=[timestamp]&cmsid=133&vid=10XWSh7W4so&ad_rule=1";
+            adPolicy.adPlayCap = 2;
+            adModule.setAdPolicy(adPolicy, onAdPolicySetupComplete); 
+    }
+
+
+
+
+    function onAdPolicySetupComplete(evt){
+    	console.log('ad policy complete');
+    }
+
+    function AdHandler(evt){
+		console.log("AdHandler fired!");
+		console.log(evt);
+    }
+    function logstuff(evt){
+    	console.log(evt);
+    }
+    function playVideo(evt){
+        console.log("video play");
+        console.log(evt);
+    }
+    function pausedVideo(){
+    	console.log("video paused");
+        console.log(evt);
+    }
+</script>
