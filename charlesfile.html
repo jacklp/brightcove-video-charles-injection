@@ -1,5 +1,6 @@
-
-
+<script type="text/javascript" src="http://admin.brightcove.com/js/APIModules_all.js">
+ </script> 
+<script language="JavaScript" type="text/javascript" src="http://admin.brightcove.com/js/BrightcoveExperiences.js"></script>
 
 
 
@@ -7,14 +8,18 @@
 
 
 <param name="includeAPI" value="true" />
-<param name="templateLoadHandler" value="onTemplateLoad" />
-<param name="templateReadyHandler" value="onTemplateReady"/>
+<param name="showNoContentMessage" value="true" />
+<param name="templateLoadHandler" value="onPlayerLoaded" />
+<param name="templateReadyHandler" value="onPlayerReady" />
+<param name="templateErrorHandler" value="onPlayerError" />
 </object>
 
 
 
 <div id ="log">
 </div>
+<script type="text/javascript" src="http://admin.brightcove.com/js/APIModules_all.js">
+ </script> 
 <script type="text/javascript">
 
 	brightcove.createExperiences();
@@ -25,19 +30,31 @@
         videoPlayer,
         admodule;
  
- 	function onTemplateLoad(experienceID){
- 		console.log("Template Loaded.");
- 		player = brightcove.api.getExperience(experienceID);
- 		APIModules = brightcove.api.modules.APIModules;
+
+    function onTemplateError(evt){
+
+        console.log('onTemplateError');
+    }
+ 	function onPlayerLoaded(experienceID){
+ 		console.log("Template Loaded!_!_!_!_!_!_!");
+ 		
+        player = brightcove.api.getExperience(experienceID);
+        APIModules = brightcove.api.modules.APIModules;
+
  	}
 
-    function onTemplateReady(evt){
+    function onPlayerReady(evt){
         console.log("Template Ready.");
+        console.log(evt);
 
+        
         adModule = player.getModule(APIModules.ADVERTISING);
+        console.log('0');
     	adModule.addEventListener( brightcove.api.events.AdEvent.COMPLETE, AdHandler);
+        console.log('0.5');
     	adModule.addEventListener( brightcove.api.events.AdEvent.START, AdHandler);
 
+        console.log('1');
     	videoPlayer = player.getModule(APIModules.VIDEO_PLAYER);
 		videoPlayer.addEventListener(brightcove.api.events.MediaEvent.BEGIN, logstuff);
 		videoPlayer.addEventListener(brightcove.api.events.MediaEvent.CHANGE, logstuff);
@@ -46,24 +63,15 @@
 		videoPlayer.addEventListener(brightcove.api.events.MediaEvent.PROGRESS, logstuff);
 		videoPlayer.addEventListener(brightcove.api.events.MediaEvent.SEEK_NOTIFY, logstuff);
 		videoPlayer.addEventListener(brightcove.api.events.MediaEvent.STOP, logstuff);
-	
-        adModule.getAdPolicy(getAdPolicyHandler);
+	   console.log('2');
+
+        debugger;
         videoPlayer.play();
+        console.log('3');
     }
 
-     function getAdPolicyHandler(adPolicy) {
-     		console.log("getting ad policy");
-            adPolicy.prerollAds = true;
-            adPolicy.adServerURL = "http://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=%2F15018773%2Feverything2&ciu_szs=300x250%2C468x60%2C728x90&impl=s&gdfp_req=1&env=vp&output=xml_vast2&unviewed_position_start=1&url=dummy&correlator=[timestamp]&cmsid=133&vid=10XWSh7W4so&ad_rule=1";
-            adPolicy.adPlayCap = 2;
-            adModule.setAdPolicy(adPolicy, onAdPolicySetupComplete); 
-    }
-
-
-
-
-    function onAdPolicySetupComplete(evt){
-    	console.log('ad policy complete');
+    function onPlayerError(evt){
+        console.log('onPlayerError');
     }
 
     function AdHandler(evt){
@@ -71,6 +79,7 @@
 		console.log(evt);
     }
     function logstuff(evt){
+        console.log('log stuff');
     	console.log(evt);
     }
     function playVideo(evt){

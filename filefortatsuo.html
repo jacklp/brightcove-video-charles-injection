@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Smart Player API: Basic Setup</title>
+    <script type="text/javascript" src="http://admin.brightcove.com/js/APIModules_all.js"></script> 
+    <script language="JavaScript" type="text/javascript" src="http://admin.brightcove.com/js/BrightcoveExperiences.js"></script>
+</head>
+​
+<body>
+
+
+<!--
+<object id="myExperience922656010001" class="BrightcoveExperience">
+    <param name="bgcolor" value="#FFFFFF" />
+    <param name="width" value="480" />
+    <param name="height" value="270" />
+    <param name="playerID" value="2344262015001" />
+    <param name="playerKey" value="AQ~~,AAACgRebHDE~,7ZLwnNkuuFLVVM06Di425p7vEZNdL4f1" />
+    <param name="isVid" value="true" />
+    <param name="isUI" value="true" />
+    <param name="dynamicStreaming" value="true" />
+    <param name="@videoPlayer" value="4317908852001"/>
+</object>
+-->
+
+<object id="myExperience4790150138001" class="BrightcoveExperience">  
+    <param name="bgcolor" value="#FFFFFF" />  
+    <param name="width" value="648" />  
+    <param name="height" value="365" />  
+    <param name="playerID" value="4581640863001" />  
+    <param name="playerKey" value="AQ~~,AAACT2hWexE~,QV-ElXQT89XYeDzzv2EI-sNTr1XyPZ3F" />  
+    <param name="isVid" value="true" />  
+    <param name="isUI" value="true" />  
+    <param name="dynamicStreaming" value="true" />    
+    <param name="@videoPlayer" value="4790150138001" />
+    <param name="includeAPI" value="true" />
+    <param name="showNoContentMessage" value="true" />
+    <param name="templateLoadHandler" value="onPlayerLoaded" />
+    <param name="templateReadyHandler" value="onPlayerReady" />
+    <param name="templateErrorHandler" value="onPlayerError" />
+</object>
+
+
+
+<script type="text/javascript">
+
+    brightcove.createExperiences();
+    
+    var player,
+        APIModules,
+        modVP,
+        videoPlayer,
+        admodule;
+ 
+    function onPlayerLoaded(experienceID){
+        console.log("Template Loaded!_!_!_!_!_!_!");
+        
+        player = brightcove.api.getExperience(experienceID);
+        APIModules = brightcove.api.modules.APIModules;
+
+    }
+
+    function onPlayerReady(evt){
+        console.log("Template Ready.");
+        console.log(evt);
+
+        
+        adModule = player.getModule(APIModules.ADVERTISING);
+        
+        adModule.addEventListener( brightcove.api.events.AdEvent.COMPLETE, AdHandler);
+        adModule.addEventListener( brightcove.api.events.AdEvent.START, AdHandler);
+
+        videoPlayer = player.getModule(APIModules.VIDEO_PLAYER);
+        videoPlayer.addEventListener(brightcove.api.events.MediaEvent.BEGIN, logstuff);
+        videoPlayer.addEventListener(brightcove.api.events.MediaEvent.CHANGE, logstuff);
+        videoPlayer.addEventListener(brightcove.api.events.MediaEvent.COMPLETE, logstuff);
+        videoPlayer.addEventListener(brightcove.api.events.MediaEvent.PLAY, logstuff);
+        videoPlayer.addEventListener(brightcove.api.events.MediaEvent.PROGRESS, logstuff);
+        videoPlayer.addEventListener(brightcove.api.events.MediaEvent.SEEK_NOTIFY, logstuff);
+        videoPlayer.addEventListener(brightcove.api.events.MediaEvent.STOP, logstuff);
+
+        videoPlayer.play();
+
+    }
+
+    function onPlayerError(evt){
+        console.log('Player Error');
+        console.log(evt);
+    }
+
+    function AdHandler(evt){
+        console.log("AdHandler fired!");
+        console.log(evt);
+    }
+    function logstuff(evt){
+        console.log('log stuff');
+        console.log(evt);
+    }
+    function playVideo(evt){
+        console.log("video play");
+        console.log(evt);
+    }
+    function pausedVideo(){
+        console.log("video paused");
+        console.log(evt);
+    }
+</script>
+
+​
+​
+</body>
+</html>
